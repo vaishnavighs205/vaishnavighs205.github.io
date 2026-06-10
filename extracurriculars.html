@@ -42,13 +42,20 @@
     .activity-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 8px 0 0 8px; background: var(--accent); }
     .activity-card.rose::before { background: #d4a0a0; }
     .activity-card.mauve::before { background: var(--accent2); }
-    .card-date { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .card-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .card-date { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+    .card-status { font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 20px; background: #f0d5d0; color: #7a3030; border: 1px solid #e0b8b0; }
     .card-title { font-family: var(--serif); font-size: 1.2rem; color: var(--text); margin-bottom: 0.25rem; }
     .card-org { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); margin-bottom: 0.75rem; }
     .card-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 0.75rem; }
     .card-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
     .card-bullets li { font-size: 0.85rem; color: var(--muted); padding-left: 1.2rem; position: relative; }
     .card-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); }
+
+    .role-block { margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
+    .role-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .role-label { font-family: var(--mono); font-size: 0.68rem; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; background: var(--tag-bg); display: inline-block; padding: 2px 8px; border-radius: 4px; border: 1px solid var(--border); }
+
     .placeholder { border: 1px dashed var(--border); border-radius: 8px; padding: 3rem; text-align: center; margin-top: 1.5rem; }
     .placeholder-title { font-family: var(--serif); font-size: 1.1rem; color: var(--muted); margin-bottom: 0.5rem; }
     .placeholder-body { font-size: 0.85rem; color: var(--muted); line-height: 1.7; opacity: 0.7; }
@@ -77,8 +84,8 @@
   <div class="nav-section">
     <div class="nav-label">On This Page</div>
     <a class="nav-link" href="#leadership">Leadership</a>
+    <a class="nav-link" href="#clubs">Clubs & Organizations</a>
     <a class="nav-link" href="#experience">Other Experience</a>
-    <a class="nav-link" href="#activities">Activities</a>
   </div>
   <div class="sidebar-contact">
     <div class="nav-label">Contact</div>
@@ -93,10 +100,14 @@
   <div class="section-title">Extracurriculars</div>
   <p class="section-sub">Leadership, community involvement, and experiences outside of research.</p>
 
+  <!-- LEADERSHIP -->
   <div id="leadership">
     <div class="section-eyebrow" style="margin-bottom: 1rem;">LEADERSHIP</div>
+
     <div class="activity-card">
-      <div class="card-date">Sep 2024 – Apr 2025</div>
+      <div class="card-meta">
+        <span class="card-date">Sep 2024 – Apr 2025</span>
+      </div>
       <div class="card-title">Council Member & Mentor</div>
       <div class="card-org">Freshman Leadership Council @ University of Florida</div>
       <ul class="card-bullets">
@@ -111,9 +122,64 @@
 
   <hr class="divider"/>
 
+  <!-- CLUBS -->
+  <div id="clubs">
+    <div class="section-eyebrow" style="margin-bottom: 1rem;">CLUBS & ORGANIZATIONS</div>
+
+    <div class="activity-card rose">
+      <div class="card-meta">
+        <span class="card-date">2025 – Present</span>
+        <span class="card-status">Active</span>
+      </div>
+      <div class="card-title">Logistics Team Member & Biology Mentorship Program Mentor</div>
+      <div class="card-org">SCI-MI @ University of Florida</div>
+      <p class="card-desc">
+        SCI-MI is a student organization at UF dedicated to making science accessible and fostering the next generation of researchers through mentorship, outreach, and community programming. I hold two active roles within the organization, contributing to both event operations and student mentorship.
+      </p>
+
+      <div class="role-block">
+        <div class="role-label">Logistics Team</div>
+        <ul class="card-bullets">
+          <li>Helping plan and execute SCI-MI's virtual symposium from the ground up, covering end-to-end logistics</li>
+          <li>Mapping out the full symposium structure, including session scheduling, flow, and participant coordination</li>
+          <li>Contributing to the design and visual layout of the virtual symposium experience</li>
+          <li>Involved in conducting the symposium live, supporting speakers, presenters, and attendees throughout the event</li>
+        </ul>
+      </div>
+
+      <div class="role-block">
+        <div class="role-label">Biology Mentorship Program (BMP)</div>
+        <ul class="card-bullets">
+          <li>Serving as a mentor in the Biology Mentorship Program, guiding an undergraduate mentee through their personal research project</li>
+          <li>Supporting the mentee in developing their research question, methodology, and findings</li>
+          <li>Preparing the mentee to present their completed project at the SCI-MI virtual symposium</li>
+          <li>Building a collaborative mentorship relationship focused on scientific growth and academic confidence</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- OTHER EXPERIENCE -->
   <div id="experience">
     <div class="section-eyebrow" style="margin-bottom: 1rem;">OTHER EXPERIENCE</div>
-    <div class="activity-card rose">
+
+    <div class="activity-card">
       <div class="card-date">2022</div>
       <div class="card-title">Healthcare Intern</div>
-      <div
+      <div class="card-org">Rainbow Hospital · Pediatric & Maternal Healthcare · India</div>
+      <p class="card-desc">Gained firsthand exposure to clinical operations in a pediatric and maternal healthcare setting, observing how patient data and care workflows are managed across departments.</p>
+    </div>
+
+    <div class="activity-card mauve">
+      <div class="card-date">2022</div>
+      <div class="card-title">Content Researcher</div>
+      <div class="card-org">IN-CUBE Digital Foundation · Non-profit, Industry 4.0 Digital Innovation · India</div>
+      <p class="card-desc">Contributed research and content development for a non-profit focused on digital innovation and Industry 4.0 initiatives, building skills in research communication and knowledge synthesis.</p>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
