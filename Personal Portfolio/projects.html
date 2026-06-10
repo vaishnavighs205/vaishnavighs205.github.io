@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects | Hamsini Gedela</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0d1117; --surface: #161b22; --border: #21262d;
+      --text: #e6edf3; --muted: #7d8590; --accent: #58a6ff;
+      --accent2: #3fb950; --tag-bg: #1f2937; --tag-text: #93c5fd;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; display: flex; min-height: 100vh; }
+    .sidebar { width: 240px; min-height: 100vh; background: var(--surface); border-right: 1px solid var(--border); padding: 2rem 1.5rem; position: sticky; top: 0; height: 100vh; overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column; gap: 2rem; }
+    .sidebar-name { font-family: var(--serif); font-size: 1.15rem; color: var(--text); line-height: 1.3; }
+    .sidebar-title { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); margin-top: 4px; letter-spacing: 0.04em; }
+    .nav-section { display: flex; flex-direction: column; gap: 0.2rem; }
+    .nav-label { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .nav-link { display: block; color: var(--muted); text-decoration: none; font-size: 0.85rem; padding: 3px 0 3px 0.75rem; border-left: 2px solid transparent; transition: color 0.15s; }
+    .nav-link:hover { color: var(--text); }
+    .nav-link.active { color: var(--accent); border-left-color: var(--accent); }
+    .sidebar-contact { margin-top: auto; display: flex; flex-direction: column; gap: 0.4rem; }
+    .sidebar-contact a { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .sidebar-contact a:hover { color: var(--accent); }
+    .main { flex: 1; padding: 3rem 4rem; max-width: 900px; }
+    .section-eyebrow { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .section-title { font-family: var(--serif); font-size: 2rem; color: var(--text); margin-bottom: 0.75rem; }
+    .section-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 2.5rem; }
+    .project-card { border: 1px solid var(--border); border-radius: 8px; padding: 1.75rem; margin-bottom: 1.5rem; background: var(--surface); position: relative; }
+    .project-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 8px 0 0 8px; background: var(--accent); }
+    .project-card.green::before { background: var(--accent2); }
+    .project-card.purple::before { background: #c084fc; }
+    .card-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .card-context { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+    .card-wip { font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 20px; background: #1a1040; color: #c084fc; }
+    .card-title { font-family: var(--serif); font-size: 1.2rem; color: var(--text); margin-bottom: 0.25rem; }
+    .card-lab { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); margin-bottom: 0.8rem; }
+    .card-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 1rem; }
+    .card-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+    .tool-pill { font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); }
+    .gh-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem; font-family: var(--mono); font-size: 0.72rem; color: var(--accent); text-decoration: none; border: 1px solid var(--border); padding: 4px 12px; border-radius: 4px; transition: background 0.15s; }
+    .gh-link:hover { background: var(--tag-bg); }
+    .placeholder { border: 1px dashed var(--border); border-radius: 8px; padding: 3rem; text-align: center; }
+    .placeholder-title { font-family: var(--serif); font-size: 1.1rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .placeholder-body { font-size: 0.85rem; color: #3d4450; line-height: 1.7; }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div>
+    <div class="sidebar-name">Hamsini Gedela</div>
+    <div class="sidebar-title">BME · UF '28</div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Navigate</div>
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="research.html">Research</a>
+    <a class="nav-link active" href="projects.html">Projects</a>
+    <a class="nav-link" href="extracurriculars.html">Extracurriculars</a>
+  </div>
+  <div class="sidebar-contact">
+    <div class="nav-label">Contact</div>
+    <a href="mailto:vaishnavighs205@gmail.com">vaishnavighs205@gmail.com</a>
+    <a href="https://www.linkedin.com/in/hamsini-gedela" target="_blank">linkedin.com/in/hamsini-gedela</a>
+    <a href="https://github.com/vaishnavighs205" target="_blank">github.com/vaishnavighs205</a>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="section-eyebrow">INDEPENDENT WORK</div>
+  <div class="section-title">Projects</div>
+  <p class="section-sub">Computational, bioinformatics, and data projects built in and around research.</p>
+
+  <!--
+  TEMPLATE — copy, uncomment, and fill in as you build projects:
+
+  <div class="project-card green">
+    <div class="card-meta">
+      <span class="card-context">BEAT Cancer Lab · 2025</span>
+      <span class="card-wip">In Progress</span>
+    </div>
+    <div class="card-title">Project Title</div>
+    <div class="card-lab">Short description of context</div>
+    <p class="card-desc">What the project does and why it matters.</p>
+    <div class="card-tools">
+      <span class="tool-pill">R</span>
+      <span class="tool-pill">Python</span>
+    </div>
+    <a href="https://github.com/vaishnavighs205/your-repo" class="gh-link" target="_blank">↗ View on GitHub</a>
+  </div>
+  -->
+
+  <div class="placeholder">
+    <div class="placeholder-title">Projects coming soon</div>
+    <p class="placeholder-body">
+      As you build out repos — RNA-seq pipelines, CDR3 analysis scripts,<br/>
+      NeuronetExperimenter contributions — add them here as project cards.<br/><br/>
+      A commented template card is already in this file, ready to use.
+    </p>
+  </div>
+</main>
+</body>
+</html>
