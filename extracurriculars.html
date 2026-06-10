@@ -7,9 +7,14 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg: #0d1117; --surface: #161b22; --border: #21262d;
-      --text: #e6edf3; --muted: #7d8590; --accent: #58a6ff;
-      --accent2: #3fb950; --tag-bg: #1f2937; --tag-text: #93c5fd;
+      --bg: #fdf6f3;
+      --surface: #f5ebe6;
+      --border: #e8d5cc;
+      --text: #2d1f1f;
+      --muted: #9a7a7a;
+      --accent: #c47d7d;
+      --accent2: #8b4a4a;
+      --tag-bg: #edddd8;
       --serif: 'DM Serif Display', Georgia, serif;
       --mono: 'IBM Plex Mono', monospace;
       --sans: 'Inter', system-ui, sans-serif;
@@ -34,9 +39,9 @@
     .divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
 
     .activity-card { border: 1px solid var(--border); border-radius: 8px; padding: 1.75rem; margin-bottom: 1.5rem; background: var(--surface); position: relative; }
-    .activity-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 8px 0 0 8px; background: var(--accent2); }
-    .activity-card.blue::before { background: var(--accent); }
-    .activity-card.purple::before { background: #c084fc; }
+    .activity-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 8px 0 0 8px; background: var(--accent); }
+    .activity-card.rose::before { background: #d4a0a0; }
+    .activity-card.mauve::before { background: var(--accent2); }
     .card-date { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-bottom: 0.5rem; }
     .card-title { font-family: var(--serif); font-size: 1.2rem; color: var(--text); margin-bottom: 0.25rem; }
     .card-org { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); margin-bottom: 0.75rem; }
@@ -44,10 +49,9 @@
     .card-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
     .card-bullets li { font-size: 0.85rem; color: var(--muted); padding-left: 1.2rem; position: relative; }
     .card-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); }
-
     .placeholder { border: 1px dashed var(--border); border-radius: 8px; padding: 3rem; text-align: center; margin-top: 1.5rem; }
     .placeholder-title { font-family: var(--serif); font-size: 1.1rem; color: var(--muted); margin-bottom: 0.5rem; }
-    .placeholder-body { font-size: 0.85rem; color: #3d4450; line-height: 1.7; }
+    .placeholder-body { font-size: 0.85rem; color: var(--muted); line-height: 1.7; opacity: 0.7; }
 
     @media (max-width: 768px) {
       body { flex-direction: column; }
@@ -109,35 +113,7 @@
 
   <div id="experience">
     <div class="section-eyebrow" style="margin-bottom: 1rem;">OTHER EXPERIENCE</div>
-
-    <div class="activity-card blue">
+    <div class="activity-card rose">
       <div class="card-date">2022</div>
       <div class="card-title">Healthcare Intern</div>
-      <div class="card-org">Rainbow Hospital · Pediatric & Maternal Healthcare · India</div>
-      <p class="card-desc">Gained firsthand exposure to clinical operations in a pediatric and maternal healthcare setting, observing how patient data and care workflows are managed across departments.</p>
-    </div>
-
-    <div class="activity-card purple">
-      <div class="card-date">2022</div>
-      <div class="card-title">Content Researcher</div>
-      <div class="card-org">IN-CUBE Digital Foundation · Non-profit, Industry 4.0 Digital Innovation · India</div>
-      <p class="card-desc">Contributed research and content development for a non-profit focused on digital innovation and Industry 4.0 initiatives, building skills in research communication and knowledge synthesis.</p>
-    </div>
-  </div>
-
-  <hr class="divider"/>
-
-  <div id="activities">
-    <div class="section-eyebrow" style="margin-bottom: 1rem;">CLUBS & ACTIVITIES</div>
-    <div class="placeholder">
-      <div class="placeholder-title">More coming soon</div>
-      <p class="placeholder-body">
-        Add clubs, organizations, volunteer work, or other activities here.<br/>
-        Each uses the same card format as the sections above.
-      </p>
-    </div>
-  </div>
-
-</main>
-</body>
-</html>
+      <div
