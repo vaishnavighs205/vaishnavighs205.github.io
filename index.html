@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Hamsini Gedela — Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <!-- Cropper.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"/>
   <style>
     :root {
       --bg: #fdf6f3;
@@ -23,6 +25,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; display: flex; min-height: 100vh; }
 
+    /* ── Sidebar ── */
     .sidebar { width: 240px; min-height: 100vh; background: var(--surface); border-right: 1px solid var(--border); padding: 2rem 1.5rem; position: sticky; top: 0; height: 100vh; overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column; gap: 2rem; }
     .sidebar-name { font-family: var(--serif); font-size: 1.15rem; color: var(--text); line-height: 1.3; }
     .sidebar-title { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); margin-top: 4px; letter-spacing: 0.04em; }
@@ -35,11 +38,10 @@
     .sidebar-contact a { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-decoration: none; transition: color 0.15s; }
     .sidebar-contact a:hover { color: var(--accent); }
 
+    /* ── Main ── */
     .main { flex: 1; padding: 3rem 4rem; max-width: 1100px; }
-
     .hero-grid { display: grid; grid-template-columns: 1fr 320px; gap: 3rem; align-items: start; margin-bottom: 3rem; }
     .hero-right { display: flex; flex-direction: column; gap: 1.5rem; align-items: center; padding-top: 0.5rem; }
-
     .hero-eyebrow { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 1rem; }
     .hero-name { font-family: var(--serif); font-size: 3.4rem; line-height: 1.05; color: var(--text); margin-bottom: 1.25rem; }
     .hero-name em { font-style: italic; color: var(--accent); }
@@ -47,7 +49,13 @@
     .hero-bio p { margin-bottom: 1rem; }
     .hero-bio p:last-child { margin-bottom: 0; }
 
-    .photo-wrap { width: 100%; height: 340px; border-radius: 12px; border: 3px solid var(--border); box-shadow: 0 4px 24px rgba(180,120,120,0.10); overflow: hidden; background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; position: relative; }
+    /* ── Photo wrap ── */
+    .photo-wrap {
+      width: 100%; height: 340px; border-radius: 12px; border: 3px solid var(--border);
+      box-shadow: 0 4px 24px rgba(180,120,120,0.10); overflow: hidden; background: var(--surface);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; position: relative;
+    }
     .photo-wrap:hover { border-color: var(--accent); box-shadow: 0 4px 32px rgba(196,125,125,0.18); }
     .photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: none; position: absolute; top: 0; left: 0; }
     .photo-placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
@@ -55,26 +63,32 @@
     .photo-placeholder span { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); text-align: center; line-height: 1.6; }
     #photo-upload { display: none; }
 
+    /* ── Change-photo button (shown after image saved) ── */
+    .change-btn {
+      display: none; font-family: var(--mono); font-size: 0.68rem; color: var(--muted);
+      background: none; border: 1px solid var(--border); border-radius: 4px; padding: 4px 12px;
+      cursor: pointer; transition: color 0.15s, border-color 0.15s;
+    }
+    .change-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── Tags & quick links ── */
     .hero-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; width: 100%; }
     .tag { background: var(--tag-bg); color: var(--tag-text); font-family: var(--mono); font-size: 0.68rem; padding: 3px 10px; border-radius: 4px; border: 1px solid var(--border); }
     .tag.rose { background: #f0d5d0; color: #7a3030; border-color: #e0b8b0; }
     .tag.mauve { background: #ddc8c8; color: #5a2828; border-color: #ccaaaa; }
-
     .quick-links { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
     .quick-link { display: flex; flex-direction: column; font-family: var(--mono); font-size: 0.72rem; color: var(--accent); text-decoration: none; padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); transition: background 0.15s; }
     .quick-link:hover { background: var(--tag-bg); }
     .quick-link-label { color: var(--muted); font-size: 0.65rem; margin-top: 2px; font-family: var(--sans); }
 
+    /* ── Sections ── */
     .divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
-
     .section-eyebrow { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
     .section-title { font-family: var(--serif); font-size: 1.6rem; color: var(--text); margin-bottom: 1.5rem; }
-
     .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; }
     .stat-num { font-family: var(--serif); font-size: 2.2rem; color: var(--accent); line-height: 1; }
     .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
-
     .currently-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     .currently-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; position: relative; }
     .currently-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 8px 0 0 8px; background: var(--accent); }
@@ -83,6 +97,50 @@
     .currently-title { font-family: var(--serif); font-size: 1rem; color: var(--text); margin-bottom: 0.2rem; }
     .currently-sub { font-family: var(--mono); font-size: 0.68rem; color: var(--accent); }
 
+    /* ══════════════════════════════════════
+       CROP MODAL
+    ══════════════════════════════════════ */
+    .crop-modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(30, 10, 10, 0.72); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center;
+    }
+    .crop-modal-overlay.open { display: flex; }
+    .crop-modal {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 14px;
+      box-shadow: 0 12px 48px rgba(100,40,40,0.22);
+      padding: 1.75rem 2rem 1.5rem;
+      display: flex; flex-direction: column; gap: 1.25rem;
+      width: min(92vw, 560px); max-height: 90vh;
+    }
+    .crop-modal-header { display: flex; align-items: center; justify-content: space-between; }
+    .crop-modal-title { font-family: var(--serif); font-size: 1.25rem; color: var(--text); }
+    .crop-modal-close {
+      background: none; border: none; font-size: 1.2rem; color: var(--muted);
+      cursor: pointer; line-height: 1; padding: 4px 6px; border-radius: 4px;
+      transition: color 0.15s;
+    }
+    .crop-modal-close:hover { color: var(--accent); }
+    .crop-container {
+      width: 100%; height: 340px; overflow: hidden;
+      background: #1a0f0f; border-radius: 8px; border: 1px solid var(--border);
+    }
+    .crop-container img { display: block; max-width: 100%; }
+    .crop-hint { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); text-align: center; }
+    .crop-actions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+    .btn {
+      font-family: var(--mono); font-size: 0.75rem; padding: 8px 20px;
+      border-radius: 6px; cursor: pointer; transition: background 0.15s, color 0.15s;
+      border: 1px solid var(--border);
+    }
+    .btn-ghost { background: none; color: var(--muted); }
+    .btn-ghost:hover { color: var(--text); border-color: var(--text); }
+    .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent2); border-color: var(--accent2); }
+    .btn-danger { background: none; color: #b85050; border-color: #e0b0b0; font-size: 0.68rem; padding: 6px 12px; }
+    .btn-danger:hover { background: #f8e8e8; }
+
+    /* ── Responsive ── */
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; }
       .photo-wrap { width: 100%; max-width: 360px; height: 280px; margin: 0 auto; }
@@ -95,11 +153,13 @@
       .hero-name { font-size: 2.4rem; }
       .stat-grid { grid-template-columns: 1fr 1fr; }
       .photo-wrap { height: 240px; }
+      .crop-container { height: 260px; }
     }
   </style>
 </head>
 <body>
 
+<!-- ══ SIDEBAR ══ -->
 <nav class="sidebar">
   <div>
     <div class="sidebar-name">Hamsini Gedela</div>
@@ -126,6 +186,7 @@
   </div>
 </nav>
 
+<!-- ══ MAIN ══ -->
 <main class="main">
   <div class="hero-grid">
     <div class="hero-left">
@@ -137,16 +198,21 @@
         <p>Through all of it, R, Python, Julia, SQL, and HPC workflows [1], what I've really been learning is how to build tools that make research faster, cleaner, and more reproducible. Where I want to take all of this is toward work that sits right at the edge of computation and clinical impact, whether that's in translational research, computational medicine, or health data science. I plan to get there by going deeper into biostatistics and machine learning for health data, and by staying close to research that actually has a shot at changing how patients are treated.</p>
       </div>
     </div>
-
     <div class="hero-right">
-      <div class="photo-wrap" onclick="document.getElementById('photo-upload').click()">
+      <!-- Photo display -->
+      <div class="photo-wrap" id="photo-wrap" onclick="triggerUpload()">
         <img id="profile-img" src="" alt="Profile photo"/>
         <div class="photo-placeholder" id="photo-placeholder">
           <div class="photo-icon">＋</div>
           <span>Click to add<br/>your photo</span>
         </div>
       </div>
-      <input type="file" id="photo-upload" accept="image/*" onchange="loadPhoto(event)"/>
+      <input type="file" id="photo-upload" accept="image/*" onchange="onFileSelected(event)"/>
+      <!-- Change / Remove buttons — hidden until a photo is saved -->
+      <div style="display:flex;gap:0.5rem;width:100%;justify-content:center;">
+        <button class="btn change-btn" id="change-btn" onclick="triggerUpload()">↺ Change photo</button>
+        <button class="btn btn-danger" id="remove-btn" style="display:none;" onclick="removePhoto()">✕ Remove</button>
+      </div>
 
       <div class="hero-tags">
         <span class="tag">RNA-seq Analysis</span>
@@ -157,45 +223,33 @@
         <span class="tag mauve">Computational Neuroscience</span>
         <span class="tag mauve">Clinical Data Science</span>
       </div>
-
       <div class="quick-links">
         <a class="quick-link" href="research.html">
-          ↗ Research & Work
+          ↗ Research &amp; Work
           <span class="quick-link-label">BEAT Cancer Lab · Bolser Lab · eClinical</span>
         </a>
         <a class="quick-link" href="projects.html">
           ↗ Projects
-          <span class="quick-link-label">Pipelines, scripts & tools</span>
+          <span class="quick-link-label">Pipelines, scripts &amp; tools</span>
         </a>
         <a class="quick-link" href="extracurriculars.html">
           ↗ Extracurriculars
-          <span class="quick-link-label">Leadership & involvement</span>
+          <span class="quick-link-label">Leadership &amp; involvement</span>
         </a>
       </div>
     </div>
   </div>
 
   <hr class="divider"/>
-
   <div class="section-eyebrow">BY THE NUMBERS</div>
   <div class="section-title">At a Glance</div>
   <div class="stat-grid">
-    <div class="stat-card">
-      <div class="stat-num">4+</div>
-      <div class="stat-label">Years of research experience</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">3</div>
-      <div class="stat-label">Research and engineering domains</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">2</div>
-      <div class="stat-label">Active lab positions</div>
-    </div>
+    <div class="stat-card"><div class="stat-num">4+</div><div class="stat-label">Years of research experience</div></div>
+    <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Research and engineering domains</div></div>
+    <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">Active lab positions</div></div>
   </div>
 
   <hr class="divider"/>
-
   <div class="section-eyebrow">RIGHT NOW</div>
   <div class="section-title">Currently Working On</div>
   <div class="currently-grid">
@@ -206,7 +260,7 @@
     </div>
     <div class="currently-card rose">
       <div class="currently-eyebrow">BEAT Cancer Lab · May 2025 – Present</div>
-      <div class="currently-title">Immunogenomics & Gastric Cancer Pipelines</div>
+      <div class="currently-title">Immunogenomics &amp; Gastric Cancer Pipelines</div>
       <div class="currently-sub">RNA-seq · CDR3 Repertoires · R · Julia · DGX B200</div>
     </div>
     <div class="currently-card">
@@ -222,19 +276,145 @@
   </div>
 </main>
 
+<!-- ══ CROP MODAL ══ -->
+<div class="crop-modal-overlay" id="crop-overlay">
+  <div class="crop-modal">
+    <div class="crop-modal-header">
+      <span class="crop-modal-title">Crop your photo</span>
+      <button class="crop-modal-close" onclick="closeCropModal()" title="Cancel">✕</button>
+    </div>
+    <div class="crop-container">
+      <img id="crop-image" src="" alt="Crop preview"/>
+    </div>
+    <p class="crop-hint">Drag to reposition · Scroll or pinch to zoom · Drag corners to resize</p>
+    <div class="crop-actions">
+      <button class="btn btn-ghost" onclick="closeCropModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="applyCrop()">Save photo</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cropper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
 <script>
-  function loadPhoto(event) {
+  let cropperInstance = null;
+
+  /* ── Trigger the hidden file input ── */
+  function triggerUpload() {
+    document.getElementById('photo-upload').click();
+  }
+
+  /* ── File selected: open crop modal ── */
+  function onFileSelected(event) {
     const file = event.target.files[0];
     if (!file) return;
+    // Reset so the same file can be re-selected after cancel
+    event.target.value = '';
+
     const reader = new FileReader();
-    reader.onload = e => {
-      const img = document.getElementById('profile-img');
-      img.src = e.target.result;
-      img.style.display = 'block';
-      document.getElementById('photo-placeholder').style.display = 'none';
-    };
+    reader.onload = e => openCropModal(e.target.result);
     reader.readAsDataURL(file);
   }
+
+  /* ── Open crop modal & init Cropper.js ── */
+  function openCropModal(src) {
+    const overlay  = document.getElementById('crop-overlay');
+    const cropImg  = document.getElementById('crop-image');
+
+    // Destroy any previous instance
+    if (cropperInstance) { cropperInstance.destroy(); cropperInstance = null; }
+
+    cropImg.src = src;
+    overlay.classList.add('open');
+
+    // Init after the image loads inside the modal
+    cropImg.onload = () => {
+      cropperInstance = new Cropper(cropImg, {
+        aspectRatio: 1,          // square — matches the circular/square card
+        viewMode: 1,             // keep crop box inside canvas
+        autoCropArea: 0.85,
+        movable: true,
+        zoomable: true,
+        scalable: false,
+        rotatable: false,
+        guides: true,
+        highlight: false,
+        background: true,
+        responsive: true,
+      });
+    };
+  }
+
+  /* ── Close modal without saving ── */
+  function closeCropModal() {
+    document.getElementById('crop-overlay').classList.remove('open');
+    if (cropperInstance) { cropperInstance.destroy(); cropperInstance = null; }
+  }
+
+  /* ── Apply crop & save to localStorage ── */
+  function applyCrop() {
+    if (!cropperInstance) return;
+
+    const canvas = cropperInstance.getCroppedCanvas({
+      width: 600,
+      height: 600,
+      imageSmoothingQuality: 'high',
+    });
+
+    const dataURL = canvas.toDataURL('image/jpeg', 0.88);
+
+    // Persist across page loads / GitHub Pages visits
+    try {
+      localStorage.setItem('portfolio_photo', dataURL);
+    } catch (e) {
+      // localStorage quota exceeded (very large image) — still display it
+      console.warn('localStorage quota exceeded; photo will not persist after refresh.');
+    }
+
+    displayPhoto(dataURL);
+    closeCropModal();
+  }
+
+  /* ── Show the photo in the card ── */
+  function displayPhoto(dataURL) {
+    const img         = document.getElementById('profile-img');
+    const placeholder = document.getElementById('photo-placeholder');
+    const wrap        = document.getElementById('photo-wrap');
+    const changeBtn   = document.getElementById('change-btn');
+    const removeBtn   = document.getElementById('remove-btn');
+
+    img.src = dataURL;
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+    wrap.style.cursor = 'default';
+    wrap.onclick = null;                // disable click-to-upload on the card itself
+    changeBtn.style.display = 'inline-block';
+    removeBtn.style.display = 'inline-block';
+  }
+
+  /* ── Remove photo ── */
+  function removePhoto() {
+    localStorage.removeItem('portfolio_photo');
+    const img         = document.getElementById('profile-img');
+    const placeholder = document.getElementById('photo-placeholder');
+    const wrap        = document.getElementById('photo-wrap');
+    const changeBtn   = document.getElementById('change-btn');
+    const removeBtn   = document.getElementById('remove-btn');
+
+    img.src = '';
+    img.style.display = 'none';
+    placeholder.style.display = 'flex';
+    wrap.style.cursor = 'pointer';
+    wrap.onclick = triggerUpload;
+    changeBtn.style.display = 'none';
+    removeBtn.style.display = 'none';
+  }
+
+  /* ── On page load: restore saved photo ── */
+  (function restorePhoto() {
+    const saved = localStorage.getItem('portfolio_photo');
+    if (saved) displayPhoto(saved);
+  })();
 </script>
 </body>
 </html>
